@@ -24,7 +24,7 @@ namespace MagicVilla_VillaAPI.Data
                     Rate = 200,
                     Sqm = 550,
                     Amenity = "",
-                    CreatedDate = DateTime.Now
+                    
                 },
                 new Villa
                 {
@@ -36,7 +36,7 @@ namespace MagicVilla_VillaAPI.Data
                     Rate = 300,
                     Sqm = 550,
                     Amenity = "",
-                    CreatedDate = DateTime.Now
+                    
                 },
                 new Villa
                 {
@@ -48,7 +48,7 @@ namespace MagicVilla_VillaAPI.Data
                     Rate = 400,
                     Sqm = 750,
                     Amenity = "",
-                    CreatedDate = DateTime.Now
+                    
                 },
                 new Villa
                 {
@@ -60,7 +60,7 @@ namespace MagicVilla_VillaAPI.Data
                     Rate = 550,
                     Sqm = 900,
                     Amenity = "",
-                    CreatedDate = DateTime.Now
+                    
                 },
                 new Villa
                 {
@@ -72,7 +72,7 @@ namespace MagicVilla_VillaAPI.Data
                     Rate = 600,
                     Sqm = 1100,
                     Amenity = "",
-                    CreatedDate = DateTime.Now
+                    
               }
             );
         }
