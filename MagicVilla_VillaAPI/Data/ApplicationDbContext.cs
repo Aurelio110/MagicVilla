@@ -1,4 +1,5 @@
 ﻿using MagicVilla_VillaAPI.Models;
+using MagicVilla_VillaAPI.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace MagicVilla_VillaAPI.Data
@@ -10,6 +11,8 @@ namespace MagicVilla_VillaAPI.Data
         {
         }
         public DbSet<Villa> Villas { get; set; }
+        public DbSet<RegisterUser> RegisteredUsers { get; set; }
+        public object Users { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,8 +1,10 @@
 ﻿using MagicVilla_VillaAPI.Data;
 using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Any;
 
 
 namespace MagicVilla_VillaAPI.Controllers
@@ -11,22 +13,21 @@ namespace MagicVilla_VillaAPI.Controllers
     [ApiController]
     public class VillaAPIController : ControllerBase
     {
-        private ILogger<VillaAPIController> _logger { get; }
         private readonly ApplicationDbContext _db;
 
-        public VillaAPIController(ApplicationDbContext db, ILogger<VillaAPIController> Logger)
+        public VillaAPIController(ApplicationDbContext db)
         {
             _db = db;
-            _logger = Logger;
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
         {
-            _logger.LogInformation("Getting all villas from the store.");
             return Ok(_db.Villas);
         }
         [HttpGet("id")]
+        [Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -46,14 +47,12 @@ namespace MagicVilla_VillaAPI.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public ActionResult<VillaDTO> CreateVilla([FromBody] VillaDTO villaDTO)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            
             if (_db.Villas.FirstOrDefault(v => v.Name.ToLower() == villaDTO.Name.ToLower()) != null)
             {
                 ModelState.AddModelError("CustomError", "Villa already exists with this name");
@@ -83,6 +82,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return Ok(model);
         }
         [HttpDelete("id")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -102,6 +102,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return Content("Villa has been deleted");
         }
         [HttpDelete("name")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -121,6 +122,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return Ok("Villa has been deleted");
         }
         [HttpPut("id")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public IActionResult UpdateVillaById(int id, [FromBody] VillaDTO villaDTO)
@@ -145,6 +147,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         [HttpPatch("id")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
