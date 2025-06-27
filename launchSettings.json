@@ -2,9 +2,16 @@
   "profiles": {
     "Docker Compose": {
       "commandName": "DockerCompose",
+      "applicationUrl": "https://localhost:7000;http://localhost:6000",
       "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "magicvilla_villaapi",
+      "composeLaunchUrl": "https://127.0.0.1:7000/swagger",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
       "serviceActions": {
-        "magicvilla_villaapi": "StartDebugging"
+        "magicvilla_villaapi": "StartDebugging",
+        "mssql": "StartWithoutDebugging"
       }
     }
   }
