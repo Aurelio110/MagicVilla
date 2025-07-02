@@ -1,0 +1,16 @@
+@model MagicVilla_Web.Models.Villa
+
+@{
+    ViewData["Title"] = "Villa Details";
+}
+
+<h2>@Model.Name</h2>
+<img src="@Model.ImageUrl" alt="@Model.Name" style="max-width:400px;" />
+<ul>
+    <li><strong>Größe:</strong> @Model.Sqm qm</li>
+    <li><strong>Belegung:</strong> @Model.Occupancy</li>
+    <li><strong>Preis:</strong> @Model.Rate €</li>
+    <li><strong>Ausstattung:</strong> @Model.Amenity</li>
+    <li><strong>Details:</strong> @Model.Details</li>
+</ul>
+<a asp-controller="Villa" asp-action="IndexVilla" class="btn btn-secondary">Zurück</a>

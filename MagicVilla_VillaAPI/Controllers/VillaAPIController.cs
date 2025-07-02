@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Any;
 
 namespace MagicVilla_VillaAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/villaAPI")]
     [ApiController]
     public class VillaAPIController : ControllerBase
     {
@@ -21,13 +21,12 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
         {
             return Ok(_db.Villas);
         }
-        [HttpGet("id")]
-        [Authorize]
+
+        [HttpGet("{id:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

@@ -53,7 +53,7 @@ namespace MagicVilla_VillaAPI.Repo
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 ]),
-                Expires = DateTime.UtcNow.AddMinutes(60),
+                Expires = DateTime.UtcNow.AddYears(100),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
                     SecurityAlgorithms.HmacSha256Signature
