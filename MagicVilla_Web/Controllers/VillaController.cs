@@ -22,34 +22,33 @@ namespace MagicVilla_Web.Controllers
         {
             List<Villa> list = new();
             var response = await _villaService.GetAllAsync<APIResponse>();
-            
-            if (response != null && response.IsSuccess)
+            if (response == null || !response.IsSuccess)
             {
-                list = JsonConvert.DeserializeObject<List<Villa>>(Convert.ToString(response.Result));
+
                 return View(list);
             }
-            Villa kunterbunt = new Villa();
-            kunterbunt.Name = "Villa Kunterbunt";
-            kunterbunt.Sqm = 200;
-            kunterbunt.Occupancy = 4;
-            kunterbunt.Rate = 2000000;
-
-            list.Add(kunterbunt);
+            if (response != null && response.IsSuccess == true)
+            {
+                var jsonString = JsonConvert.SerializeObject(response.Result);
+                list = JsonConvert.DeserializeObject<List<Villa>>(jsonString);
+            }
             return View(list);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var response = await _villaService.GetAsync<APIResponse>(id);
-            Villa villa = null;
-            if (response != null && response.IsSuccess)
-            {
-                villa = JsonConvert.DeserializeObject<Villa>(response.Result.ToString());
-            }
-            if (villa == null)
-                return NotFound();
-            return View(villa);
-        }
+     
+
+        //[HttpGet]
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var response = await _villaService.GetAsync(id);
+        //    Villa villa = null;
+        //    if (response != null && response.IsSuccess)
+        //    {
+        //        villa = JsonConvert.DeserializeObject<Villa>(response.Result.ToString());
+        //    }
+        //    if (villa == null)
+        //        return NotFound();
+        //    return View(villa);
+        //}
     }
 }

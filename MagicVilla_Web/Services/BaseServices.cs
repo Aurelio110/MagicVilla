@@ -4,6 +4,7 @@ using MagicVilla_Web.Services.IServices;
 
 using Newtonsoft.Json;
 using System.Linq;
+using System.Text.Json;
 using System.Text;
 
 namespace MagicVilla_Web.Services
@@ -19,8 +20,6 @@ namespace MagicVilla_Web.Services
             this.httpClient = httpClient;
 
         }
-
-
         public async Task<T> SendAsync<T>(APIRequest apiRequest)
         {
             try
@@ -54,32 +53,19 @@ namespace MagicVilla_Web.Services
 
                 HttpResponseMessage apiResponse = null;
 
-                apiResponse = await client.SendAsync(message);
+                var clientResponse = await client.SendAsync(message);
 
-                var apiContent = await apiResponse.Content.ReadAsStringAsync();
+                var apiContent = await clientResponse.Content.ReadAsStringAsync();
 
-                try
+                var resultData = JsonConvert.DeserializeObject<object[]>(apiContent);
+                var APIResponse = new APIResponse
                 {
-                    APIResponse ApiResponse = JsonConvert.DeserializeObject<APIResponse>(apiContent);
+                    StatusCode = clientResponse.StatusCode,
+                    IsSuccess = clientResponse.IsSuccessStatusCode,
+                    Result = resultData
+                };
 
-                    if (ApiResponse != null && (apiResponse.StatusCode == System.Net.HttpStatusCode.BadRequest
-                        || apiResponse.StatusCode == System.Net.HttpStatusCode.NotFound))
-                    {
-                        ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-                        ApiResponse.IsSuccess = false;
-                        var res = JsonConvert.SerializeObject(ApiResponse);
-                        var returnObj = JsonConvert.DeserializeObject<T>(res);
-                        return returnObj;
-                    }
-                }
-                catch(Exception ex)
-                {
-                    var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
-                    return exceptionResponse;
-                }
-                var APIResponse = JsonConvert.DeserializeObject<T>(apiContent);
-                return APIResponse;
-
+                return (T)(object)APIResponse;
             }
             catch (Exception e)
             {
