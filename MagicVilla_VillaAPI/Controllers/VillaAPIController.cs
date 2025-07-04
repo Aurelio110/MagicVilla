@@ -46,7 +46,7 @@ namespace MagicVilla_VillaAPI.Controllers
 
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public ActionResult<VillaDTO> CreateVilla([FromBody] VillaDTO villaDTO)

@@ -11,7 +11,6 @@ namespace MagicVilla_Web.Services
 {
     public class BaseServices : IBaseService
     {
-
         public IHttpClientFactory httpClient { get; set; }
         public APIResponse responseModel { get; set; }
         public BaseServices(IHttpClientFactory httpClient)
@@ -20,6 +19,7 @@ namespace MagicVilla_Web.Services
             this.httpClient = httpClient;
 
         }
+        
         public async Task<T> SendAsync<T>(APIRequest apiRequest)
         {
             try
