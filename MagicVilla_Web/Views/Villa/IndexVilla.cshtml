@@ -4,10 +4,10 @@
     ViewData["Title"] = "Villenübersicht";
 }
 
-<div class="container p-4 border">
+<div class="container p-4 border-dark">
     <div class="row pb-2">
         <div class="col">
-            <h1 class="text-primary">Villenübersicht</h1>
+            <h1 class="text-primary">Villas</h1>
         </div>
         <div class="col text-end pt-1">
             <a asp-controller="Villa" asp-action="CreateVilla" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Villa</a>
@@ -20,10 +20,10 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Größe (qm)</th>
+                <th>Größe</th>
                 <th>Belegung</th>
                 <th>Preis</th>
-                <th>Details</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -31,9 +31,9 @@
             {
                 <tr>
                     <td>@villa.Name</td>
-                    <td>@villa.Sqm</td>
-                    <td>@villa.Occupancy</td>
-                    <td>@villa.Rate</td>
+                    <td>@villa.Sqm ㎡</td>
+                    <td>max. @villa.Occupancy Personen</td>
+                    <td>@villa.Rate Tsd. € </td>
                     <td>
                         <a asp-controller="Villa" asp-action="UpdateVilla" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                         <a asp-controller="Villa" asp-action="DeleteVillaVilla" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
